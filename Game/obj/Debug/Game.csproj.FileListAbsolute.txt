@@ -26,3 +26,17 @@ C:\Users\Usuari1\Desktop\Game\Game\Game\obj\Debug\MainWindow.baml
 C:\Users\Usuari1\Desktop\Game\Game\Game\obj\Debug\CatchGame.g.resources
 C:\Users\Usuari1\Desktop\Game\Game\Game\obj\Debug\CatchGame.Properties.Resources.resources
 C:\Users\Usuari1\Desktop\Game\Game\Game\obj\Debug\Game.csproj.GenerateResource.Cache
+C:\Users\Usuari1\Documents\Game\Game\bin\Debug\CatchGame.exe.config
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame.exe
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame.pdb
+C:\Users\Usuari1\Documents\Game\Game\bin\Debug\CatchGame.exe
+C:\Users\Usuari1\Documents\Game\Game\bin\Debug\CatchGame.pdb
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\Game.csprojResolveAssemblyReference.cache
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\MainWindow.g.cs
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\App.g.cs
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame_MarkupCompile.cache
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame_MarkupCompile.lref
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\MainWindow.baml
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame.g.resources
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\CatchGame.Properties.Resources.resources
+C:\Users\Usuari1\Documents\Game\Game\obj\Debug\Game.csproj.GenerateResource.Cache

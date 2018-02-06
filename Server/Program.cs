@@ -11,8 +11,8 @@ namespace Server
 {
     class Player
     {
-        private int idJugador { get; set; }
-        private NetworkStream networkStream { get; set; }
+        public int idJugador { get; set; }
+        public NetworkStream networkStream { get; set; }
 
         public Player(int idJugador, NetworkStream networkStream)
         {
@@ -24,8 +24,9 @@ namespace Server
     class Program
     {
         private static IPAddress serverIp;
-        private static int currentNumOfPlayers;
-        private static readonly object locker; //TODO: Hacer bien la instancia del locker
+        private static int currentNumOfPlayers = 0;
+        private static readonly object locker = new object();
+        private static List<Player> players = new List<Player>();
 
         static void Main(string[] args)
         {
@@ -50,24 +51,62 @@ namespace Server
 
         static void serverResponse(Object o)
         {
+            NetworkStream serverNs = null;
             TcpClient client = (TcpClient)o;
 
-            while (true)
+            try
             {
-                NetworkStream serverNs = null;
+                serverNs = client.GetStream();
+                string generatedIdString = generatePlayer(serverNs).ToString();
 
-                try
+                byte[] idBytes = Encoding.UTF8.GetBytes(generatedIdString);
+
+                serverNs.Write(idBytes, 0, idBytes.Length);
+            } catch (Exception e)
+            {
+                serverNs.Close();
+                client.Close();
+
+                Console.WriteLine("Hi ha hagut un error amb la connexió");
+            }
+
+            if (serverNs != null)
+            {
+                while (true)
                 {
-                    serverNs = client.GetStream();
-                    //TODO: Enviar respuesta al cliente (punto 4 hacia delante)
+                    byte[] localBuffer = new byte[256];
+                    int receivedBytes = serverNs.Read(localBuffer, 0, localBuffer.Length);
+
+                    String receivedFrasePl = "";
+                    receivedFrasePl = Encoding.UTF8.GetString(localBuffer, 0, receivedBytes);
+
+                    Console.WriteLine(receivedFrasePl);
+
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        Player player = players[i];
+
+                        if (player.networkStream != serverNs)
+                        {
+                            player.networkStream.Write(localBuffer, 0, receivedBytes);
+                        }
+                    }
                 }
             }
         }
 
-        static int generatePlayer()
+        static int generatePlayer(NetworkStream clientNs)
         {
-            // TODO: Generar datos del jugador
-            Player player = new Server.Player()
+            Player player;
+
+            lock (locker)
+            {
+                player = new Player(currentNumOfPlayers, clientNs);
+                players.Add(player);
+                currentNumOfPlayers++;
+            }
+
+            return player.idJugador;
         }
     }
 }

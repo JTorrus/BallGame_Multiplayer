@@ -1,0 +1,6 @@
+C:\Users\Usuari1\Documents\Game\Sim\bin\Debug\Sim.exe.config
+C:\Users\Usuari1\Documents\Game\Sim\bin\Debug\Sim.exe
+C:\Users\Usuari1\Documents\Game\Sim\bin\Debug\Sim.pdb
+C:\Users\Usuari1\Documents\Game\Sim\obj\Debug\Sim.csprojResolveAssemblyReference.cache
+C:\Users\Usuari1\Documents\Game\Sim\obj\Debug\Sim.exe
+C:\Users\Usuari1\Documents\Game\Sim\obj\Debug\Sim.pdb

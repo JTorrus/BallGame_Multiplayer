@@ -1,0 +1,6 @@
+C:\Users\Usuari1\Documents\Game\Server\bin\Debug\Server.exe.config
+C:\Users\Usuari1\Documents\Game\Server\bin\Debug\Server.exe
+C:\Users\Usuari1\Documents\Game\Server\bin\Debug\Server.pdb
+C:\Users\Usuari1\Documents\Game\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\Usuari1\Documents\Game\Server\obj\Debug\Server.exe
+C:\Users\Usuari1\Documents\Game\Server\obj\Debug\Server.pdb
