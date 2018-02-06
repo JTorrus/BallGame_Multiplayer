@@ -74,6 +74,11 @@ namespace Server
             {
                 while (true)
                 {
+                    if (!serverNs.CanRead)
+                    {
+                        break;
+                    }
+
                     byte[] localBuffer = new byte[256];
                     int receivedBytes = serverNs.Read(localBuffer, 0, localBuffer.Length);
 
