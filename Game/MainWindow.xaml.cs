@@ -1,6 +1,9 @@
-﻿using System;
+﻿using PosLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -54,16 +57,73 @@ namespace Game
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IPAddress serverIp;
+        private int clientPort;
+        private int playerId;
+        private Position position;
+        private NetworkStream clientNs;
         private DispatcherTimer dTimer = new DispatcherTimer();
         int NumBalls = 0;
         List<Ball> Balls = new List<Ball>();
 
         public MainWindow()
         {
+            clientPort = 50000;
+            serverIp = IPAddress.Parse("127.0.0.1");
+
+            TcpClient client = new TcpClient();
+            client.Connect(serverIp, clientPort);
+
+            if (client.Connected)
+            {
+                Console.WriteLine("Connected");
+                NetworkStream clientNs = client.GetStream();
+
+                byte[] localBuffer = new byte[256];
+                int idBytes = clientNs.Read(localBuffer, 0, localBuffer.Length);
+
+                string receivedId = "";
+                receivedId = Encoding.UTF8.GetString(localBuffer, 0, idBytes);
+                playerId = Int32.Parse(receivedId);
+
+                Thread receivingThread = new Thread(receiveFromServer);
+                Thread responsingThread = new Thread(responseToServer);
+
+                receivingThread.Start(clientNs);
+                responsingThread.Start(clientNs);
+            }
+
             InitializeComponent();
             
             CreateBall();
             Loop();
+        }
+
+        void receiveFromServer(object clientNs)
+        {
+            NetworkStream current = (NetworkStream)clientNs;
+
+            while (true)
+            {
+                byte[] localBuffer = new byte[256];
+                int receivedBytes = current.Read(localBuffer, 0, localBuffer.Length);
+
+                String receivedFrase = "";
+                receivedFrase = Encoding.UTF8.GetString(localBuffer, 0, receivedBytes);
+
+                Console.WriteLine(receivedFrase);
+            }
+        }
+
+        void responseToServer(object clientNs)
+        {
+            NetworkStream current = (NetworkStream)clientNs;
+
+            position = new Position(2 * playerId + 10, 50);
+
+            byte[] fraseToBytes = Position.Serialize(position);
+            current.Write(fraseToBytes, 0, fraseToBytes.Length);
+
         }
 
         public void CreateBall()
@@ -118,8 +178,16 @@ namespace Game
                     break;
                 default:                    
                     break;
-            }            
-        }
+            }
 
+            Position position = new Position(Balls[0].PosX, Balls[0].PosY);
+            //Position.;
+
+            //TODO ENVIAR SERIALITZADA LA POSICIÓ AL SERVER
+
+            //clientNs.Write( 0)
+            
+        }
     }
 }
+

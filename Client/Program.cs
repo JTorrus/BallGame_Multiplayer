@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
+using PosLibrary;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace Client
 {
@@ -14,6 +18,7 @@ namespace Client
         private static IPAddress serverIp;
         private static int clientPort;
         private static int playerId;
+        private static Position position;
         
         static void Main(string[] args)
         {
@@ -63,21 +68,11 @@ namespace Client
         {
             NetworkStream current = (NetworkStream)clientNs;
 
-            while (true)
-            {
-                Console.WriteLine("Escriu un missatge o escriu 'q' per sortir:");
-                string frase = Console.ReadLine();
+            position = new Position(2 * playerId + 10, 50);
+            
+            byte[] fraseToBytes = Position.Serialize(position);
+            current.Write(fraseToBytes, 0, fraseToBytes.Length);
 
-                if (frase.Equals("q"))
-                {
-                    current.Close();
-                    break;
-                } else
-                {
-                    byte[] fraseToBytes = Encoding.UTF8.GetBytes(frase);
-                    current.Write(fraseToBytes, 0, fraseToBytes.Length);
-                }
-            }
         }
     }
 }

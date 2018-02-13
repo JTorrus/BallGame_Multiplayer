@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
+using PosLibrary;
 
 namespace Server
 {
@@ -13,6 +14,7 @@ namespace Server
     {
         public int idJugador { get; set; }
         public NetworkStream networkStream { get; set; }
+        public Position position { get; set; }
 
         public Player(int idJugador, NetworkStream networkStream)
         {
@@ -74,18 +76,15 @@ namespace Server
             {
                 while (true)
                 {
-                    if (!serverNs.CanRead)
-                    {
-                        break;
-                    }
-
+                
                     byte[] localBuffer = new byte[256];
                     int receivedBytes = serverNs.Read(localBuffer, 0, localBuffer.Length);
 
-                    String receivedFrasePl = "";
-                    receivedFrasePl = Encoding.UTF8.GetString(localBuffer, 0, receivedBytes);
+                    Position receivedFrasePl0;
+                    receivedFrasePl0 = (Position) Position.Deserialize(localBuffer);
 
-                    Console.WriteLine(receivedFrasePl);
+                    Console.WriteLine(receivedFrasePl0.posX);
+                    Console.WriteLine(receivedFrasePl0.posY);
 
                     for (int i = 0; i < players.Count; i++)
                     {

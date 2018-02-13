@@ -1,0 +1,4 @@
+C:\Users\Usuari1\Documents\Game\PosLibrary\bin\Debug\PosLibrary.dll
+C:\Users\Usuari1\Documents\Game\PosLibrary\bin\Debug\PosLibrary.pdb
+C:\Users\Usuari1\Documents\Game\PosLibrary\obj\Debug\PosLibrary.dll
+C:\Users\Usuari1\Documents\Game\PosLibrary\obj\Debug\PosLibrary.pdb
