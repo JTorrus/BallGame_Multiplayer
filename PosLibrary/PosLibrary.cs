@@ -12,13 +12,13 @@ namespace PosLibrary
     [Serializable]
     public class Position 
     {
-        public double posX { get; set; }
-        public double posY { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
 
-        public Position(double posX, double posY)
+        public Position(int PosX, int PosY)
         {
-            this.posX = posX;
-            this.posY = posY;
+            this.PosX = PosX;
+            this.PosY = PosY;
         }
 
         public static byte[] Serialize(object obj)

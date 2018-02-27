@@ -12,30 +12,30 @@ namespace Server
 {
     class Player
     {
-        public int idJugador { get; set; }
-        public NetworkStream networkStream { get; set; }
-        public Position position { get; set; }
+        public int IdJugador { get; set; }
+        public NetworkStream NetworkStream { get; set; }
+        public Position Position { get; set; }
 
-        public Player(int idJugador, NetworkStream networkStream)
+        public Player(int IdJugador, NetworkStream NetworkStream)
         {
-            this.idJugador = idJugador;
-            this.networkStream = networkStream;
+            this.IdJugador = IdJugador;
+            this.NetworkStream = NetworkStream;
         }
     }
 
     class Program
     {
-        private static IPAddress serverIp;
-        private static int currentNumOfPlayers = 0;
+        private static IPAddress ServerIp;
+        private static int CurrentNumOfPlayers = 0;
         private static readonly object locker = new object();
         private static List<Player> players = new List<Player>();
 
         static void Main(string[] args)
         {
             int serverPort = 50000;
-            serverIp = IPAddress.Parse("127.0.0.1");
+            ServerIp = IPAddress.Parse("127.0.0.1");
 
-            TcpListener server = new TcpListener(serverIp, serverPort);
+            TcpListener server = new TcpListener(ServerIp, serverPort);
             Console.WriteLine("Server has been created");
 
             server.Start();
@@ -46,12 +46,12 @@ namespace Server
                 TcpClient client = server.AcceptTcpClient();
                 Console.WriteLine("Client connected");
 
-                Thread clientThread = new Thread(serverResponse);
+                Thread clientThread = new Thread(ServerResponse);
                 clientThread.Start(client);
             }
         }
 
-        static void serverResponse(Object o)
+        static void ServerResponse(Object o)
         {
             NetworkStream serverNs = null;
             TcpClient client = (TcpClient)o;
@@ -59,7 +59,7 @@ namespace Server
             try
             {
                 serverNs = client.GetStream();
-                string generatedIdString = generatePlayer(serverNs).ToString();
+                string generatedIdString = GeneratePlayer(serverNs).ToString();
 
                 byte[] idBytes = Encoding.UTF8.GetBytes(generatedIdString);
 
@@ -80,37 +80,37 @@ namespace Server
                     byte[] localBuffer = new byte[256];
                     int receivedBytes = serverNs.Read(localBuffer, 0, localBuffer.Length);
 
-                    Position receivedFrasePl0;
-                    receivedFrasePl0 = (Position) Position.Deserialize(localBuffer);
+                    Position receivedPosition;
+                    receivedPosition = (Position) Position.Deserialize(localBuffer);
 
-                    Console.WriteLine(receivedFrasePl0.posX);
-                    Console.WriteLine(receivedFrasePl0.posY);
+                    Console.WriteLine(receivedPosition.PosX);
+                    Console.WriteLine(receivedPosition.PosY);
 
                     for (int i = 0; i < players.Count; i++)
                     {
                         Player player = players[i];
 
-                        if (player.networkStream != serverNs)
+                        if (player.NetworkStream != serverNs)
                         {
-                            player.networkStream.Write(localBuffer, 0, receivedBytes);
+                            player.NetworkStream.Write(localBuffer, 0, receivedBytes);
                         }
                     }
                 }
             }
         }
 
-        static int generatePlayer(NetworkStream clientNs)
+        static int GeneratePlayer(NetworkStream clientNs)
         {
             Player player;
 
             lock (locker)
             {
-                player = new Player(currentNumOfPlayers, clientNs);
+                player = new Player(CurrentNumOfPlayers, clientNs);
                 players.Add(player);
-                currentNumOfPlayers++;
+                CurrentNumOfPlayers++;
             }
 
-            return player.idJugador;
+            return player.IdJugador;
         }
     }
 }

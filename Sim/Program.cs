@@ -17,12 +17,12 @@ namespace Sim
 
             while (exit != true)
             {
-                Console.WriteLine("Crear client? (s/n) ");
+                Console.WriteLine("Vols crear un nou jugador? (s/n) ");
                 option = Console.ReadLine();
 
                 if (option == "s")
                 {
-                    crearClient();
+                    joinPlayer();
                 }
                 else
                 {
@@ -31,10 +31,10 @@ namespace Sim
             }
         }
 
-        static void crearClient()
+        static void joinPlayer()
         {
             Process process = new Process();
-            process.StartInfo.FileName = @"C:\Users\Usuari1\Documents\Game\Client\bin\Debug\Client.exe";
+            process.StartInfo.FileName = @"C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Game\bin\Debug\CatchGame.exe";
             process.Start();
         }
     }

@@ -61,13 +61,17 @@ namespace Game
         private int clientPort;
         private int playerId;
         private Position position;
-        private NetworkStream clientNs;
+        private static NetworkStream clientNs;
         private DispatcherTimer dTimer = new DispatcherTimer();
         int NumBalls = 0;
         List<Ball> Balls = new List<Ball>();
+        private static bool clientIsHere = false;
 
         public MainWindow()
         {
+            InitializeComponent();
+            Loop();
+
             clientPort = 50000;
             serverIp = IPAddress.Parse("127.0.0.1");
 
@@ -76,8 +80,7 @@ namespace Game
 
             if (client.Connected)
             {
-                Console.WriteLine("Connected");
-                NetworkStream clientNs = client.GetStream();
+                clientNs = client.GetStream();
 
                 byte[] localBuffer = new byte[256];
                 int idBytes = clientNs.Read(localBuffer, 0, localBuffer.Length);
@@ -86,56 +89,80 @@ namespace Game
                 receivedId = Encoding.UTF8.GetString(localBuffer, 0, idBytes);
                 playerId = Int32.Parse(receivedId);
 
+                CreateBall();
+                CreateSecondBall();
+
                 Thread receivingThread = new Thread(receiveFromServer);
-                Thread responsingThread = new Thread(responseToServer);
-
                 receivingThread.Start(clientNs);
-                responsingThread.Start(clientNs);
-            }
 
-            InitializeComponent();
-            
-            CreateBall();
-            Loop();
+                Position positionToSend = new Position(Balls[0].PosX, Balls[0].PosY);
+                ResponseToServer(positionToSend);
+            }
         }
 
         void receiveFromServer(object clientNs)
         {
             NetworkStream current = (NetworkStream)clientNs;
 
+            byte[] receivedBuffer = new byte[256];
+            int bytesFromBuffer = current.Read(receivedBuffer, 0, receivedBuffer.Length);
+            clientIsHere = true;
+            
+            Position otherPosition = Position.Deserialize(receivedBuffer) as Position;
+            Balls[1].PosX = otherPosition.PosX;
+            Balls[1].PosY = otherPosition.PosY;
             while (true)
             {
                 byte[] localBuffer = new byte[256];
                 int receivedBytes = current.Read(localBuffer, 0, localBuffer.Length);
 
-                String receivedFrase = "";
-                receivedFrase = Encoding.UTF8.GetString(localBuffer, 0, receivedBytes);
-
-                Console.WriteLine(receivedFrase);
+                Position receivedPos = Position.Deserialize(localBuffer) as Position;
+                Balls[1].PosX = receivedPos.PosX;
+                Balls[1].PosY = receivedPos.PosY;
             }
         }
 
-        void responseToServer(object clientNs)
+        void ResponseToServer(Position position)
         {
-            NetworkStream current = (NetworkStream)clientNs;
-
-            position = new Position(2 * playerId + 10, 50);
-
-            byte[] fraseToBytes = Position.Serialize(position);
-            current.Write(fraseToBytes, 0, fraseToBytes.Length);
-
+            byte[] positionToBytes = Position.Serialize(position);
+            clientNs.Write(positionToBytes, 0, positionToBytes.Length);
         }
 
         public void CreateBall()
         {
+            Color color = Colors.Green;
+
+            if (playerId == 0)
+            {
+                color = Colors.Violet;
+            }
+
             //Creem una bola
-            Ball ball = new Game.Ball(200, 325, 50, 50, Colors.Red);
+            Ball ball = new Game.Ball(200 + 200 * playerId, 325, 50, 50, color);
 
             //Dibuixem la bola al taulell
             CanvasBalls.Children.Add(ball.BallDraw.ShapeBall);
             DrawBall(ball);
             
             //Guardem informació de la bola
+            Balls.Add(ball);
+            NumBalls++;
+        }
+
+        public void CreateSecondBall()
+        {
+            Color color = Colors.Green;
+
+            if (playerId != 0)
+            {
+                color = Colors.Violet;
+            }
+
+            Ball ball = new Ball(0, 0, 0, 0, color);
+
+            CanvasBalls.Children.Add(ball.BallDraw.ShapeBall);
+            DrawBall(ball);
+
             Balls.Add(ball);
             NumBalls++;
         }
@@ -149,13 +176,22 @@ namespace Game
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            DrawBall(Balls[0]);
+            foreach (Ball ball in Balls)
+            {
+                DrawBall(ball);
+            }
         }
 
         public void DrawBall(Ball infoBall)
         {
             Canvas.SetLeft(infoBall.BallDraw.ShapeBall, infoBall.PosX);
             Canvas.SetTop(infoBall.BallDraw.ShapeBall, infoBall.PosY);
+
+            if (clientIsHere)
+            {
+                infoBall.BallDraw.ShapeBall.Height = 50;
+                infoBall.BallDraw.ShapeBall.Width = 50;
+            }
         }
 
 
@@ -181,12 +217,7 @@ namespace Game
             }
 
             Position position = new Position(Balls[0].PosX, Balls[0].PosY);
-            //Position.;
-
-            //TODO ENVIAR SERIALITZADA LA POSICIÓ AL SERVER
-
-            //clientNs.Write( 0)
-            
+            ResponseToServer(position);
         }
     }
 }

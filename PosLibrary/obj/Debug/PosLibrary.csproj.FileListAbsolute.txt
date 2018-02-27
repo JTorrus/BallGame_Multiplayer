@@ -2,3 +2,13 @@ C:\Users\Usuari1\Documents\Game\PosLibrary\bin\Debug\PosLibrary.dll
 C:\Users\Usuari1\Documents\Game\PosLibrary\bin\Debug\PosLibrary.pdb
 C:\Users\Usuari1\Documents\Game\PosLibrary\obj\Debug\PosLibrary.dll
 C:\Users\Usuari1\Documents\Game\PosLibrary\obj\Debug\PosLibrary.pdb
+C:\Users\javyc\Documents\Game\PosLibrary\bin\Debug\PosLibrary.dll
+C:\Users\javyc\Documents\Game\PosLibrary\bin\Debug\PosLibrary.pdb
+C:\Users\javyc\Documents\Game\PosLibrary\obj\Debug\PosLibrary.csprojResolveAssemblyReference.cache
+C:\Users\javyc\Documents\Game\PosLibrary\obj\Debug\PosLibrary.csproj.CoreCompileInputs.cache
+C:\Users\javyc\Documents\Game\PosLibrary\obj\Debug\PosLibrary.dll
+C:\Users\javyc\Documents\Game\PosLibrary\obj\Debug\PosLibrary.pdb
+C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\bin\Debug\PosLibrary.dll
+C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\bin\Debug\PosLibrary.pdb
+C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\obj\Debug\PosLibrary.dll
+C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\obj\Debug\PosLibrary.pdb
