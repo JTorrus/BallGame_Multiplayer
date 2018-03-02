@@ -17,3 +17,10 @@ C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Sim\bin\Debug\Sim.pdb
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Sim\obj\Debug\Sim.csprojResolveAssemblyReference.cache
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Sim\obj\Debug\Sim.exe
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Sim\obj\Debug\Sim.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\bin\Debug\Sim.exe.config
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\bin\Debug\Sim.exe
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\bin\Debug\Sim.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\obj\Debug\Sim.csprojResolveAssemblyReference.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\obj\Debug\Sim.csproj.CoreCompileInputs.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\obj\Debug\Sim.exe
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Sim\obj\Debug\Sim.pdb

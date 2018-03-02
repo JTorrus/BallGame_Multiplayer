@@ -13,7 +13,7 @@ using System.Runtime.Serialization;
 
 namespace Client
 {
-    class Program
+    /*class Program AQUESTA CLASSE JA NO ES FA SERVIR, MIGRACIÓ A GAME
     {
         private static IPAddress serverIp;
         private static int clientPort;
@@ -74,5 +74,5 @@ namespace Client
             current.Write(fraseToBytes, 0, fraseToBytes.Length);
 
         }
-    }
+    }*/
 }

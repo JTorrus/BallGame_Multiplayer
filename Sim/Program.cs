@@ -34,7 +34,7 @@ namespace Sim
         static void joinPlayer()
         {
             Process process = new Process();
-            process.StartInfo.FileName = @"C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Game\bin\Debug\CatchGame.exe";
+            process.StartInfo.FileName = @"C:\Users\javyc\Desktop\BallGame_Multiplayer\Game\bin\Debug\CatchGame.exe";
             process.Start();
         }
     }

@@ -9,6 +9,8 @@ using System.Runtime.Serialization;
 
 namespace PosLibrary
 {
+    // Aquesta llibreria serveix per poder instanciar i manipular objectes Position a totes les demes classes de forma generalitzada
+    // Per poder fer funcionar la Serialització necessitem la keyword Serialitzable sobre la creació de la classe
     [Serializable]
     public class Position 
     {
@@ -21,6 +23,7 @@ namespace PosLibrary
             this.PosY = PosY;
         }
 
+        // Els mètodes Serialize i Deserialize ens permeten passar a binari o a objecte (depenent del que volem fer) la informació de Position
         public static byte[] Serialize(object obj)
         {
             byte[] bytesPos;

@@ -60,7 +60,6 @@ namespace Game
         private IPAddress serverIp;
         private int clientPort;
         private int playerId;
-        private Position position;
         private static NetworkStream clientNs;
         private DispatcherTimer dTimer = new DispatcherTimer();
         int NumBalls = 0;
@@ -72,12 +71,14 @@ namespace Game
             InitializeComponent();
             Loop();
 
+            // Al constructor de la classe MainWindow fem la petició al server per connectar-nos
             clientPort = 50000;
             serverIp = IPAddress.Parse("127.0.0.1");
 
             TcpClient client = new TcpClient();
             client.Connect(serverIp, clientPort);
 
+            // Quan el client està connectat escoltem de forma seqüencial la resposta del server ja que ens donarà la Id que tindrem associada en el joc
             if (client.Connected)
             {
                 clientNs = client.GetStream();
@@ -89,18 +90,24 @@ namespace Game
                 receivedId = Encoding.UTF8.GetString(localBuffer, 0, idBytes);
                 playerId = Int32.Parse(receivedId);
 
+                // Creem la primera bola que serà la nostra
                 CreateBall();
+
+                // Creem la segona bola que per defecte tindrà una height de 0 i width de 0, quan un altre jugador es connecti, manipularem aquests atributs
                 CreateSecondBall();
 
-                Thread receivingThread = new Thread(receiveFromServer);
+                // Creem i iniciem un fil "listener" que anirà rebent dades del servidor
+                Thread receivingThread = new Thread(ReceiveFromServer);
                 receivingThread.Start(clientNs);
 
+                // Enviem de forma seqüencial la primera posició de la bola quan apareix en la interficie gràfica
                 Position positionToSend = new Position(Balls[0].PosX, Balls[0].PosY);
                 ResponseToServer(positionToSend);
             }
         }
 
-        void receiveFromServer(object clientNs)
+        // El mètode ReceiveFromServer s'encarrega de rebre informació del servidor, quan això ocurreix canviem la boolean clientIsHere a true, que significarà que un altre jugador s'ha connectat
+        void ReceiveFromServer(object clientNs)
         {
             NetworkStream current = (NetworkStream)clientNs;
 
@@ -111,17 +118,30 @@ namespace Game
             Position otherPosition = Position.Deserialize(receivedBuffer) as Position;
             Balls[1].PosX = otherPosition.PosX;
             Balls[1].PosY = otherPosition.PosY;
-            while (true)
-            {
-                byte[] localBuffer = new byte[256];
-                int receivedBytes = current.Read(localBuffer, 0, localBuffer.Length);
 
-                Position receivedPos = Position.Deserialize(localBuffer) as Position;
-                Balls[1].PosX = receivedPos.PosX;
-                Balls[1].PosY = receivedPos.PosY;
+            bool closed = false;
+
+            // Fem un bucle que actua com "listener" on li afegim un try catch per controlar IOException quan l'usuari tanqui l'aplicació
+            while (!closed)
+            {
+                closed = false;
+
+                try
+                {
+                    byte[] localBuffer = new byte[256];
+                    int receivedBytes = current.Read(localBuffer, 0, localBuffer.Length);
+
+                    Position receivedPos = Position.Deserialize(localBuffer) as Position;
+                    Balls[1].PosX = receivedPos.PosX;
+                    Balls[1].PosY = receivedPos.PosY;
+                } catch (Exception e)
+                {
+                    closed = true;
+                }
             }
         }
 
+        // El mètode ResponseToServer envia un objecte Position serialitzat cap al servidor
         void ResponseToServer(Position position)
         {
             byte[] positionToBytes = Position.Serialize(position);
@@ -174,6 +194,7 @@ namespace Game
             dTimer.Start();
         }
 
+        // Editem el mètode Timer_Tick que dibuixarà a la interficie tants objectes Ball com boles hi hagin a la llista
         void Timer_Tick(object sender, EventArgs e)
         {
             foreach (Ball ball in Balls)
@@ -216,6 +237,7 @@ namespace Game
                     break;
             }
 
+            // Quan l'usuari mou la bola pressionant una tecla creem un objecte Position amb els atributs PosX i PosY corresponents, una vegada ho creem cridem al mètode ResponseToServer passant-li aquesta Position
             Position position = new Position(Balls[0].PosX, Balls[0].PosY);
             ResponseToServer(position);
         }

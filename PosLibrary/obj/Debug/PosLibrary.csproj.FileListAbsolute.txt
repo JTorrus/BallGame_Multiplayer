@@ -12,3 +12,9 @@ C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\bin\Debug\PosLib
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\bin\Debug\PosLibrary.pdb
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\obj\Debug\PosLibrary.dll
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\PosLibrary\obj\Debug\PosLibrary.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\bin\Debug\PosLibrary.dll
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\bin\Debug\PosLibrary.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\obj\Debug\PosLibrary.csprojResolveAssemblyReference.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\obj\Debug\PosLibrary.csproj.CoreCompileInputs.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\obj\Debug\PosLibrary.dll
+C:\Users\javyc\Desktop\BallGame_Multiplayer\PosLibrary\obj\Debug\PosLibrary.pdb

@@ -23,3 +23,12 @@ C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Server\bin\Debug\PosLibrary
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Server\obj\Debug\Server.exe
 C:\Users\Usuari1\Music\BallGame_Multiplayer-dev_javi\Server\obj\Debug\Server.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\bin\Debug\Server.exe.config
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\bin\Debug\Server.exe
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\bin\Debug\Server.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\bin\Debug\PosLibrary.dll
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\bin\Debug\PosLibrary.pdb
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\obj\Debug\Server.exe
+C:\Users\javyc\Desktop\BallGame_Multiplayer\Server\obj\Debug\Server.pdb
